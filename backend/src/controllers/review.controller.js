@@ -1,4 +1,4 @@
-import responseHandler from "../handles/response.handler";
+import responseHandler from "../handlers/response.handler";
 import reviewModel from "../models/review.model";
 
 const create = async (req, res) => {

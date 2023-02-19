@@ -1,4 +1,4 @@
-import responseHandler from "../handles/response.handler";
+import responseHandler from "../handlers/response.handler";
 import tokenMiddleware from "../middlewares/token.middleware";
 import favoriteModel from "../models/favorite.model";
 import reviewModel from "../models/review.model";
