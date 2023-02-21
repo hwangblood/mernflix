@@ -7,13 +7,16 @@ const signup = async (req, res) => {
     const { username, password, displayName } = req.body;
 
     const checkUser = await userModel.findOne({ username });
+
     if (checkUser)
       return responseHandler.badrequest(res, "username already used");
 
-    const user = userModel();
+    const user = new userModel();
+
     user.displayName = displayName;
     user.username = username;
     user.setPassword(password);
+
     await user.save();
 
     const token = jsonwebtoken.sign(
@@ -27,8 +30,8 @@ const signup = async (req, res) => {
       ...user._doc,
       id: user.id,
     });
-  } catch (error) {
-    responseHandler.error(error);
+  } catch {
+    responseHandler.error(res);
   }
 };
 
@@ -38,8 +41,9 @@ const signin = async (req, res) => {
 
     const user = await userModel
       .findOne({ username })
-      .select("username password, salt id displayName");
-    if (!user) return responseHandler.badrequest(res, "user not exist");
+      .select("username password salt id displayName");
+
+    if (!user) return responseHandler.badrequest(res, "User not exist");
 
     if (!user.validPassword(password))
       return responseHandler.badrequest(res, "Wrong password");
@@ -58,8 +62,8 @@ const signin = async (req, res) => {
       ...user._doc,
       id: user.id,
     });
-  } catch (error) {
-    responseHandler.error(error);
+  } catch {
+    responseHandler.error(res);
   }
 };
 
@@ -74,14 +78,15 @@ const updatePassword = async (req, res) => {
     if (!user) return responseHandler.unauthorize(res);
 
     if (!user.validPassword(password))
-      return responseHandler.badrequest(req, "Wrong password");
+      return responseHandler.badrequest(res, "Wrong password");
 
     user.setPassword(newPassword);
 
     await user.save();
+
     responseHandler.ok(res);
-  } catch (error) {
-    responseHandler.error(error);
+  } catch {
+    responseHandler.error(res);
   }
 };
 
@@ -92,8 +97,8 @@ const getInfo = async (req, res) => {
     if (!user) return responseHandler.notfound(res);
 
     responseHandler.ok(res, user);
-  } catch (error) {
-    responseHandler.error(error);
+  } catch {
+    responseHandler.error(res);
   }
 };
 

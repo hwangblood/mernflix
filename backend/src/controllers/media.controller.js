@@ -1,9 +1,9 @@
 import responseHandler from "../handlers/response.handler.js";
-import tokenMiddleware from "../middlewares/token.middleware.js";
+import tmdbAPI from "../tmdb/tmdb.api.js";
+import userModel from "../models/user.model.js";
 import favoriteModel from "../models/favorite.model.js";
 import reviewModel from "../models/review.model.js";
-import userModel from "../models/user.model.js";
-import tmdbAPI from "../tmdb/tmdb.api.js";
+import tokenMiddlerware from "../middlewares/token.middleware.js";
 
 const getList = async (req, res) => {
   try {
@@ -12,13 +12,13 @@ const getList = async (req, res) => {
 
     const response = await tmdbAPI.mediaList({
       mediaType,
-      mediaCatrgory,
+      mediaCategory,
       page,
     });
 
     return responseHandler.ok(res, response);
-  } catch (error) {
-    responseHandler.error(erro);
+  } catch {
+    responseHandler.error(res);
   }
 };
 
@@ -29,8 +29,8 @@ const getGenres = async (req, res) => {
     const response = await tmdbAPI.mediaGenres({ mediaType });
 
     return responseHandler.ok(res, response);
-  } catch (error) {
-    responseHandler.error(error);
+  } catch {
+    responseHandler.error(res);
   }
 };
 
@@ -46,7 +46,7 @@ const search = async (req, res) => {
     });
 
     responseHandler.ok(res, response);
-  } catch (error) {
+  } catch {
     responseHandler.error(res);
   }
 };
@@ -54,24 +54,28 @@ const search = async (req, res) => {
 const getDetail = async (req, res) => {
   try {
     const { mediaType, mediaId } = req.params;
+
     const params = { mediaType, mediaId };
 
-    const media = await await tmdbAPI.mediaDetail(params);
+    const media = await tmdbAPI.mediaDetail(params);
 
     media.credits = await tmdbAPI.mediaCredits(params);
 
     const videos = await tmdbAPI.mediaVideos(params);
+
     media.videos = videos;
 
     const recommend = await tmdbAPI.mediaRecommend(params);
+
     media.recommend = recommend.results;
 
     media.images = await tmdbAPI.mediaImages(params);
 
-    const tokenDecodeed = tokenMiddleware.tokenDecode(req);
+    const tokenDecoded = tokenMiddlerware.tokenDecode(req);
 
-    if (tokenDecodeed) {
-      const user = await userModel.findById(tokenDecodeed.data);
+    if (tokenDecoded) {
+      const user = await userModel.findById(tokenDecoded.data);
+
       if (user) {
         const isFavorite = await favoriteModel.findOne({
           user: user.id,
@@ -87,8 +91,9 @@ const getDetail = async (req, res) => {
       .sort("-createdAt");
 
     responseHandler.ok(res, media);
-  } catch (error) {
-    responseHandler.error(error);
+  } catch (e) {
+    console.log(e);
+    responseHandler.error(res);
   }
 };
 

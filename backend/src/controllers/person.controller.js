@@ -8,8 +8,8 @@ const personDetail = async (req, res) => {
     const person = await tmdbAPI.personDetail({ personId });
 
     responseHandler.ok(res, person);
-  } catch (error) {
-    responseHandler.error(error);
+  } catch {
+    responseHandler.error(res);
   }
 };
 
@@ -20,8 +20,8 @@ const personMedias = async (req, res) => {
     const medias = await tmdbAPI.personMedias({ personId });
 
     responseHandler.ok(res, medias);
-  } catch (error) {
-    responseHandler.error(error);
+  } catch {
+    responseHandler.error(res);
   }
 };
 
