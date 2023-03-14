@@ -1,5 +1,5 @@
 {
-  "name": "mernflix-frontend",
+  "name": "mernflix-server",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
