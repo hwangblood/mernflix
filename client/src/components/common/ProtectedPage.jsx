@@ -11,7 +11,7 @@ const ProtectedPage = ({ children }) => {
     dispatch(setAuthModalOpen(!user));
   }, [user, dispatch]);
 
-  return user ? children : null;
+  return user ? children : <div>ProtectedPage</div>;
 };
 
 export default ProtectedPage;

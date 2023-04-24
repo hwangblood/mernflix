@@ -20,10 +20,10 @@ const main = [
     state: "movie",
   },
   {
-    display: "tv serires",
+    display: "tv series",
     path: "/tv",
     icon: <LiveTvOutlinedIcon />,
-    state: "hometv",
+    state: "tv",
   },
   {
     display: "search",
@@ -48,15 +48,12 @@ const user = [
   },
   {
     display: "password update",
-    path: "/pasword-update",
+    path: "/password-update",
     icon: <LockResetOutlinedIcon />,
     state: "password.update",
   },
 ];
 
-const menuConfigs = {
-  main,
-  user,
-};
+const menuConfigs = { main, user };
 
 export default menuConfigs;

@@ -8,7 +8,7 @@ import globalLoadingSlice from "./features/globalLoadingSlice";
 const store = configureStore({
   reducer: {
     user: userSlice,
-    themeModeSlice: themeModeSlice,
+    themeMode: themeModeSlice,
     appState: appStateSlice,
     authModal: authModalSlice,
     globalLoading: globalLoadingSlice,

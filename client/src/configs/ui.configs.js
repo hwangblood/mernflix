@@ -27,17 +27,21 @@ const uiConfigs = {
       WebkitBoxOrient: "vertical",
       WebkitLineClamp: lines,
     }),
-    mainContent: { maxWidth: "1366px", margin: "auto", oadding: 2 },
+    mainContent: {
+      maxWidth: "1366px",
+      margin: "auto",
+      padding: 2,
+    },
     backgroundImage: (imgPath) => ({
-      position: "reletive",
+      position: "relative",
       backgroundSize: "cover",
       backgroundPosition: "center",
-      backgroundCOlor: "darkgrey",
+      backgroundColor: "darkgrey",
       backgroundImage: `url(${imgPath})`,
     }),
   },
   size: {
-    sidebaeWidth: "300px",
+    sidebarWidth: "300px",
     contentMaxWidth: "1366px",
   },
 };
