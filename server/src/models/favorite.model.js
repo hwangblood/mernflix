@@ -3,7 +3,7 @@ import modelOptions from "./model.options.js";
 
 export default mongoose.model(
   "Favorite",
-  new Schema(
+  mongoose.Schema(
     {
       user: {
         type: Schema.Types.ObjectId,

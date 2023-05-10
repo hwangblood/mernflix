@@ -3,7 +3,7 @@ import modelOptions from "./model.options.js";
 
 export default mongoose.model(
   "Review",
-  new Schema(
+  mongoose.Schema(
     {
       user: {
         type: Schema.Types.ObjectId,

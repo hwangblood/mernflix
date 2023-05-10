@@ -20,7 +20,7 @@ const created = (res, data) => responseWithData(res, 201, data);
 const unauthorize = (res) =>
   responseWithData(res, 401, {
     status: 401,
-    message: "Unthorized",
+    message: "Unathorized",
   });
 
 const notfound = (res) =>
@@ -29,4 +29,11 @@ const notfound = (res) =>
     message: "Resource not found",
   });
 
-export default { error, badrequest, ok, created, unauthorize, notfound };
+export default {
+  error,
+  badrequest,
+  ok,
+  created,
+  unauthorize,
+  notfound,
+};

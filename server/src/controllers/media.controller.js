@@ -1,5 +1,5 @@
 import responseHandler from "../handlers/response.handler.js";
-import tmdbAPI from "../tmdb/tmdb.api.js";
+import tmdbApi from "../tmdb/tmdb.api.js";
 import userModel from "../models/user.model.js";
 import favoriteModel from "../models/favorite.model.js";
 import reviewModel from "../models/review.model.js";
@@ -10,7 +10,7 @@ const getList = async (req, res) => {
     const { page } = req.query;
     const { mediaType, mediaCategory } = req.params;
 
-    const response = await tmdbAPI.mediaList({
+    const response = await tmdbApi.mediaList({
       mediaType,
       mediaCategory,
       page,
@@ -26,7 +26,7 @@ const getGenres = async (req, res) => {
   try {
     const { mediaType } = req.params;
 
-    const response = await tmdbAPI.mediaGenres({ mediaType });
+    const response = await tmdbApi.mediaGenres({ mediaType });
 
     return responseHandler.ok(res, response);
   } catch {
@@ -39,7 +39,7 @@ const search = async (req, res) => {
     const { mediaType } = req.params;
     const { query, page } = req.query;
 
-    const response = await tmdbAPI.mediaSearch({
+    const response = await tmdbApi.mediaSearch({
       query,
       page,
       mediaType: mediaType === "people" ? "person" : mediaType,
@@ -57,19 +57,19 @@ const getDetail = async (req, res) => {
 
     const params = { mediaType, mediaId };
 
-    const media = await tmdbAPI.mediaDetail(params);
+    const media = await tmdbApi.mediaDetail(params);
 
-    media.credits = await tmdbAPI.mediaCredits(params);
+    media.credits = await tmdbApi.mediaCredits(params);
 
-    const videos = await tmdbAPI.mediaVideos(params);
+    const videos = await tmdbApi.mediaVideos(params);
 
     media.videos = videos;
 
-    const recommend = await tmdbAPI.mediaRecommend(params);
+    const recommend = await tmdbApi.mediaRecommend(params);
 
     media.recommend = recommend.results;
 
-    media.images = await tmdbAPI.mediaImages(params);
+    media.images = await tmdbApi.mediaImages(params);
 
     const tokenDecoded = tokenMiddlerware.tokenDecode(req);
 
