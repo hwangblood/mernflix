@@ -1,19 +1,17 @@
 import privateClient from "../client/private.client";
 import publicClient from "../client/public.client";
 
-const userEndpoint = {
+const userEndpoints = {
   signin: "user/signin",
-  signup: "user/singup",
+  signup: "user/signup",
   getInfo: "user/info",
   passwordUpdate: "user/update-password",
-  getFavorites: "user/favorites",
-  addFavorite: "user/favorites",
 };
 
 const userApi = {
   signin: async ({ username, password }) => {
     try {
-      const response = await publicClient.post(userEndpoint.signin, {
+      const response = await publicClient.post(userEndpoints.signin, {
         username,
         password,
       });
@@ -25,7 +23,7 @@ const userApi = {
   },
   signup: async ({ username, password, confirmPassword, displayName }) => {
     try {
-      const response = await publicClient.post(userEndpoint.signup, {
+      const response = await publicClient.post(userEndpoints.signup, {
         username,
         password,
         confirmPassword,
@@ -39,7 +37,7 @@ const userApi = {
   },
   getInfo: async () => {
     try {
-      const response = await privateClient.get(userEndpoint.getInfo);
+      const response = await privateClient.get(userEndpoints.getInfo);
 
       return { response };
     } catch (err) {
@@ -48,7 +46,7 @@ const userApi = {
   },
   passwordUpdate: async ({ password, newPassword, confirmNewPassword }) => {
     try {
-      const response = await privateClient.put(userEndpoint.passwordUpdate, {
+      const response = await privateClient.put(userEndpoints.passwordUpdate, {
         password,
         newPassword,
         confirmNewPassword,
