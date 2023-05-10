@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setAuthModalOpen } from "../../redux/features/authModalSlice";
 import Logo from "./Logo";
+import SignInForm from "./SignInForm";
+import SignUpForm from "./SignUpForm";
 
 const authActionState = {
   signin: "signin",
@@ -53,6 +55,18 @@ const AuthModal = () => {
           >
             <Logo />
           </Box>
+
+          {/* SignInForm or SignUpForm, base on authActionState */}
+          {action === authActionState.signin && (
+            <SignInForm
+              switchAuthState={() => switchAuthState(authActionState.signup)}
+            />
+          )}
+          {action === authActionState.signup && (
+            <SignUpForm
+              switchAuthState={() => switchAuthState(authActionState.signin)}
+            />
+          )}
         </Box>
       </Box>
     </Modal>
