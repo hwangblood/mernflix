@@ -1,5 +1,6 @@
 import axios from "axios";
 import queryString from "query-string";
+import StorageConstants from "../../constants/storage_constants";
 
 const baseURL = "http://127.0.0.1:5000/api/v1";
 
@@ -15,7 +16,9 @@ privateClient.interceptors.request.use(async (config) => {
     ...config,
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+      Authorization: `Bearer ${localStorage.getItem(
+        StorageConstants.tokenKey
+      )}`,
     },
   };
 });

@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import StorageConstants from "../../constants/storage_constants";
 
 export const userSlice = createSlice({
   name: "User",
@@ -9,10 +10,10 @@ export const userSlice = createSlice({
   reducers: {
     setUser: (state, action) => {
       if (action.payload === null) {
-        localStorage.removeItem("accessToken");
+        localStorage.removeItem(StorageConstants.tokenKey);
       } else {
         if (action.payload.token) {
-          localStorage.setItem("accessToken", action.payload.token);
+          localStorage.setItem(StorageConstants.tokenKey, action.payload.token);
         }
       }
       state.user = action.payload;
