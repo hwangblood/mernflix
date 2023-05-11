@@ -21,11 +21,16 @@ const UserMenu = () => {
 
   const toggleMenu = (e) => setAnchorEl(e.currentTarget);
 
+  const formateDisplayName = (displayName) => {
+    return displayName.split(" ")[0];
+  };
+
   return (
     <>
       {user && (
         <>
           <Typography
+            textTransform="uppercase"
             variant="h6"
             sx={{
               cursor: "pointer",
@@ -33,7 +38,7 @@ const UserMenu = () => {
             }}
             onClick={toggleMenu}
           >
-            {user.displayName}
+            {formateDisplayName(user.displayName)}
           </Typography>
           <Menu
             open={Boolean(anchorEl)}
