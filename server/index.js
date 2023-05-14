@@ -19,6 +19,9 @@ const port = process.env.PORT || 5000;
 
 const server = http.createServer(app);
 
+// https://mongoosejs.com/docs/migrating_to_7.html#strictquery
+mongoose.set("strictQuery", true);
+
 mongoose
   .connect(process.env.MONGODB_URL)
   .then(() => {
