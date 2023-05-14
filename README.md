@@ -1,6 +1,8 @@
 # mernflix
 A Fullstack Responsive React Movie App with MERN stack and TMDB API.
 
+Open https://mernflix.hwangblood.com in your browser
+
 # Introduction
 
 What are the features of this project?
