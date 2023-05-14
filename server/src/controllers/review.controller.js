@@ -1,11 +1,11 @@
 import responseHandler from "../handlers/response.handler.js";
-import reviewModel from "../models/review.model.js";
+import ReviewModel from "../models/review.model.js";
 
 const create = async (req, res) => {
   try {
     const { movieId } = req.params;
 
-    const review = new reviewModel({
+    const review = new ReviewModel({
       user: req.user.id,
       movieId,
       ...req.body,
@@ -27,7 +27,7 @@ const remove = async (req, res) => {
   try {
     const { reviewId } = req.params;
 
-    const review = await reviewModel.findOne({
+    const review = await ReviewModel.findOne({
       _id: reviewId,
       user: req.user.id,
     });
@@ -44,11 +44,9 @@ const remove = async (req, res) => {
 
 const getReviewsOfUser = async (req, res) => {
   try {
-    const reviews = await reviewModel
-      .find({
-        user: req.user.id,
-      })
-      .sort("-createdAt");
+    const reviews = await ReviewModel.find({
+      user: req.user.id,
+    }).sort("-createdAt");
 
     responseHandler.ok(res, reviews);
   } catch {

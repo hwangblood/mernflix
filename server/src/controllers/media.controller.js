@@ -1,8 +1,8 @@
 import responseHandler from "../handlers/response.handler.js";
 import tmdbApi from "../tmdb/tmdb.api.js";
-import userModel from "../models/user.model.js";
-import favoriteModel from "../models/favorite.model.js";
-import reviewModel from "../models/review.model.js";
+import UserModel from "../models/user.model.js";
+import FavoriteModel from "../models/favorite.model.js";
+import ReviewModel from "../models/review.model.js";
 import tokenMiddlerware from "../middlewares/token.middleware.js";
 
 const getList = async (req, res) => {
@@ -74,10 +74,10 @@ const getDetail = async (req, res) => {
     const tokenDecoded = tokenMiddlerware.tokenDecode(req);
 
     if (tokenDecoded) {
-      const user = await userModel.findById(tokenDecoded.data);
+      const user = await UserModel.findById(tokenDecoded.data);
 
       if (user) {
-        const isFavorite = await favoriteModel.findOne({
+        const isFavorite = await FavoriteModel.findOne({
           user: user.id,
           mediaId,
         });
@@ -85,8 +85,7 @@ const getDetail = async (req, res) => {
       }
     }
 
-    media.reviews = await reviewModel
-      .find({ mediaId })
+    media.reviews = await ReviewModel.find({ mediaId })
       .populate("user")
       .sort("-createdAt");
 
