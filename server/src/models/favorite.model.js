@@ -1,6 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 import modelOptions from "./model.options.js";
-const favoriteSchema = new mongoose.Schema(
+
+const FavoriteSchema = new mongoose.Schema(
   {
     user: {
       type: Schema.Types.ObjectId,
@@ -32,6 +33,6 @@ const favoriteSchema = new mongoose.Schema(
   modelOptions
 );
 
-const FavoriteModel = mongoose.model("Favorite", favoriteSchema);
+const FavoriteModel = mongoose.model("Favorite", FavoriteSchema);
 
 export default FavoriteModel;

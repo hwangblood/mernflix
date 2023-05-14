@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 import modelOptions from "./model.options.js";
 
-const reviewSchema = new mongoose.Schema(
+const ReviewSchema = new mongoose.Schema(
   {
     user: {
       type: Schema.Types.ObjectId,
@@ -33,6 +33,6 @@ const reviewSchema = new mongoose.Schema(
   modelOptions
 );
 
-const ReviewModel = mongoose.model("Review", reviewSchema);
+const ReviewModel = mongoose.model("Review", ReviewSchema);
 
 export default ReviewModel;
