@@ -59,6 +59,30 @@ const MediaDetail = () => {
     getMedia();
   }, [mediaType, mediaId, dispatch]);
 
+  const onFavoriteClick = async () => {
+    if (!user) return dispatch(setAuthModalOpen(true));
+    if (onRequest) return;
+    if (isFavorite) return;
+
+    setOnRequest(true);
+    const body = {
+      mediaId: media.id,
+      mediaTitle: media.title || media.name,
+      mediaType,
+      mediaPoster: media.poster_path,
+      mediaRate: media.vote_average,
+    };
+    const { response, err } = await favoriteApi.add(body);
+    setOnRequest(false);
+
+    if (err) toast.error(err.message);
+    if (response) {
+      dispatch(addFavorite(response));
+      setIsFavorite(true);
+      toast.success("Add favorite successfully");
+    }
+  };
+
   return media ? (
     <>
       <ImageHeader
@@ -132,7 +156,7 @@ const MediaDetail = () => {
                   {/* rete */}
                   <CircularRate value={media.vote_average} />
                   {/* rete */}
-                  <Divider orientation="vertival" />
+                  <Divider orientation="vertical" />
                   {/* genres */}
                   {genres.map((genre, index) => (
                     <Chip
@@ -175,13 +199,14 @@ const MediaDetail = () => {
                     }
                     loadingPosition="start"
                     loading={onRequest}
+                    onClick={onFavoriteClick}
                   />
                   <Button
                     variant="contained"
                     sx={{ width: "max-content" }}
                     size="large"
                     startIcon={<PlayArrowIcon />}
-                    onclick={() => videoRef.current.scrollIntoView()}
+                    onClick={() => videoRef.current.scrollIntoView()}
                   >
                     watch now
                   </Button>
