@@ -9,7 +9,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -58,8 +58,6 @@ const HeroSlide = ({ mediaType, mediaCategory }) => {
     getGenres();
   }, [mediaType, mediaCategory, dispatch]);
 
-  console.log("movies", movies);
-  console.log("genres", genres);
   return (
     <Box
       sx={{
