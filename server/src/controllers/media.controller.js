@@ -63,7 +63,7 @@ const getDetail = async (req, res) => {
 
     const videos = await tmdbApi.mediaVideos(params);
 
-    media.videos = videos;
+    media.videos = videos.results;
 
     const recommend = await tmdbApi.mediaRecommend(params);
 
