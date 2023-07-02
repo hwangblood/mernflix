@@ -15,7 +15,7 @@ What are the features of this project?
 
 What are the technologies in this project?
 
-- Front end
+- Front end [client](./client)
     - Create react app
     - Material UI
     - SwiperJS
@@ -23,7 +23,7 @@ What are the technologies in this project?
     - Formik
     - Yup
     - Axios
-- Back end
+- Back end [server](./server)
     - Express rest api
     - Express validator 
     - Jsonwebtoken
